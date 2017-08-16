@@ -1,0 +1,14 @@
+LC_ALL=C sed 's/\&amp;/\&/g' BX-Books.csv | sed -e '1d' > BX-BooksCorrected.txt
+LC_ALL=C sed 's/;/$$$/g'  BX-BooksCorrected.txt > BX-Final.txt
+LC_ALL=C sed 's/"$$$"/";"/g' BX-Final.txt > BX-Final1.txt
+LC_ALL=C sed 's/"//g' BX-Final1.txt > BX-Final2.txt
+
+LC_ALL=C sed 's/\&amp;/\&/g' BX-Users.csv | sed -e '1d' > BX-Users1.txt
+LC_ALL=C sed 's/";/"$$$/g' BX-Users1.txt > BX-Users2.txt
+LC_ALL=C sed 's/"$$$/"æ/g' BX-Users2.txt > BX-Users3.txt
+LC_ALL=C sed 's/"//g' BX-Users3.txt > BX-UsersCorrected.txt
+LC_ALL=C sed 's/$$$/æ/g' BX-UsersCorrected.txt > BX-UsersFinal.txt
+
+LC_ALL=C sed 's/"//g' BX-Book-Ratings.csv | sed -e '1d' > BX-BookRatingsCorrected.txt
+
+æ

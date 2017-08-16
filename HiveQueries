@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS BookData 
+(ISBN STRING, 
+BookTitle STRING, 
+BookAuthor STRING, 
+YearOfPublication INT, 
+Publisher STRING) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\;' 
+STORED AS TEXTFILE; LOAD DATA INPATH '/inputHive/BX-BooksCorrected.txt' 
+OVERWRITE INTO TABLE BookData;
+
+CREATE TABLE IF NOT EXISTS Users 
+(UserID INT,
+Location STRING,
+Age STRING)
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\;' 
+STORED AS TEXTFILE; LOAD DATA INPATH '/inputHive/BX-UsersFinal.txt' 
+OVERWRITE INTO TABLE Users;
+
+CREATE TABLE IF NOT EXISTS BookRatings 
+(UserID INT,
+ISBN STRING,
+Rating INT)
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\;' 
+STORED AS TEXTFILE; LOAD DATA INPATH '/inputHive/BX-BookRatingsCorrected.txt' 
+OVERWRITE INTO TABLE BookRatings;
+
+Count of Books Per Year:
+SELECT YearOfPublication, COUNT(BookTitle) FROM BookData GROUP BY YearOfPublication;
+
+To Keep data of only positive years:
+INSERT OVERWRITE TABLE BookData SELECT BookData.* FROM BookData WHERE YearOfPublication > 0;
+
+Books Published Per Year By Author:
+SELECT Publisher, BookAuthor, YearOfPublication, COUNT(BookTitle) FROM BookData GROUP BY Publisher, BookAuthor, YearOfPublication;

@@ -1,0 +1,9 @@
+{
+    "path" : "~/Desktop/AmazonReviews/AmazonScraping",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
