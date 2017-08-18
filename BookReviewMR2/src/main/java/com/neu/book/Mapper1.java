@@ -18,11 +18,6 @@ public class Mapper1 extends Mapper<Object,Text,Text,Text>{
     public void map(Object key,Text value,Context context) throws IOException, InterruptedException{
             
         String[] data = value.toString().split(";");
-        /*String line = value.toString();
-        line = line.replace("'", "");
-        line = line.replace("\\\"","");
-        line = line.replace("\";", "\"æ");
-        String data[] = line.split("æ");*/
         String userID = new String(data[0]);
         String locISBN = new String(data[1]);
         //Ignoring Header Row

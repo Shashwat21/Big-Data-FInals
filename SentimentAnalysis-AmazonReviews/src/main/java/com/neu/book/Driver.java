@@ -12,6 +12,7 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.filecache.DistributedCache;
@@ -55,7 +56,30 @@ public class Driver extends Configured implements Tool{
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		job.setOutputFormatClass(TextOutputFormat.class);
 
-		System.exit(job.waitForCompletion(true) ? 0 : 1);
-		return 0;
+		//Second JOB
+		boolean complete = job.waitForCompletion(true);
+
+		Configuration conf2 = new Configuration();
+		Job job2 = Job.getInstance(conf2, "chaining");
+
+		//For Mapper2 and Reducer2, second job
+		if (complete) {
+				job2.setJarByClass(Driver.class);
+				
+				job2.setMapperClass(Mapper2.class);
+				job2.setMapOutputKeyClass(Text.class);
+				job2.setMapOutputValueClass(IntWritable.class);
+				
+				job2.setReducerClass(Reducer2.class);
+				job2.setOutputKeyClass(Text.class);
+				job2.setOutputValueClass(IntWritable.class);
+				
+
+				FileInputFormat.addInputPath(job2, new Path(args[1]));
+				FileOutputFormat.setOutputPath(job2, new Path(args[2]));
+
+				System.exit(job2.waitForCompletion(true) ? 0 : 1);
+				}
+			return 0;
 	}
 }

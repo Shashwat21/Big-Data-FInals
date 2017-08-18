@@ -28,7 +28,7 @@ public class Reducer1 extends Reducer<Text, Text, Text, Text> {
     	}
     	if(arrISBN.size() >= 1 && location.length() > 0){
     		for(int i=0; i<arrISBN.size();i++){
-    			Text keyss = new Text(arrISBN.get(i)+","+location);
+    			Text keyss = new Text(arrISBN.get(i)+"%"+location);
     			context.write(keyss,userID);
     		}
     	}    		

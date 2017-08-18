@@ -48,7 +48,7 @@ public class Reducer1 extends Reducer<Text, Text, Text, IntWritable> {
     				else{
     					ageGroup = "Silent";
     				}
-    				Text keyss = new Text(arrISBN.get(i)+","+ageGroup);
+    				Text keyss = new Text(arrISBN.get(i)+"%%%"+ageGroup);
         			context.write(keyss,new IntWritable(1));
     			}    			
     		}

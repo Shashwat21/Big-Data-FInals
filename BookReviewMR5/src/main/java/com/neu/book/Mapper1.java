@@ -18,22 +18,16 @@ import org.apache.hadoop.mapreduce.Mapper;
  */
 public class Mapper1 extends Mapper<Object,Text,Text,IntWritable>{
     private Text word = new Text();
-	
-    public void map(Object key,Text value,Context context) throws IOException, InterruptedException{
-            
-        //String[] data = value.toString().split(";");
+    public void map(Object key,Text value,Context context) 
+    		throws IOException, InterruptedException{
         String line = value.toString();
-        //line = line.replace("'", "");
-        //line = line.replace("\\\"","");
         line = line.replace("\";\"", "\"æ\"");
         String data[] = line.split("æ");
         String isbn = new String(data[0]);
         String yearOfPublish = new String(data[3]);
         String authorName = new String(data[2]);
         yearOfPublish = yearOfPublish.replace("\"","");        
-        
         if (value.toString().contains("ISBN")) {
-
         } else {
         	int yearPub = Integer.parseInt(yearOfPublish);
         	if(yearPub != 0){

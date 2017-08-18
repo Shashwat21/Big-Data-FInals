@@ -10,6 +10,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -52,7 +53,7 @@ public class BookReviewMR4 {
 			job2.setMapOutputValueClass(Text.class);
 
 			job2.setReducerClass(Reducer2.class);
-			job2.setOutputValueClass(IntWritable.class);
+			job2.setOutputValueClass(NullWritable.class);
 			job2.setOutputKeyClass(Text.class);
 
 			FileInputFormat.addInputPath(job2, second_input_path);

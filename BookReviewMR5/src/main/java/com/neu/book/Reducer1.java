@@ -13,14 +13,12 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class Reducer1 extends Reducer<Text, IntWritable, Text, IntWritable> {
     private FloatWritable result = new FloatWritable();
-
-    public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<IntWritable> values,Context context) 
+    		throws IOException, InterruptedException {
         int count = 0;
         for (IntWritable val : values) {            
             count++;
         }
-        //float average = (float)(sum/count);
-        //result.set(average);
         context.write(key, new IntWritable(count));
     }
 }

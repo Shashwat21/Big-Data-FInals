@@ -12,28 +12,19 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-/**
- *
- * @author varshacholennavar
- */
 public class Mapper1 extends Mapper<Object,Text,Text,IntWritable>{
     private Text word = new Text();
 	
     public void map(Object key,Text value,Context context) throws IOException, InterruptedException{
             
-        //String[] data = value.toString().split(";");
         String line = value.toString();
-        //line = line.replace("'", "");
-        //line = line.replace("\\\"","");
         line = line.replace("\";\"", "\"æ\"");
         String data[] = line.split("æ");
         String isbn = new String(data[0]);
         String yearOfPublish = new String(data[3]);
         String publisherName = new String(data[4]);
-        yearOfPublish = yearOfPublish.replace("\"","");        
-        
+        yearOfPublish = yearOfPublish.replace("\"","");     
         if (value.toString().contains("ISBN")) {
-
         } else {
         	int yearPub = Integer.parseInt(yearOfPublish);
         	if(yearPub != 0){

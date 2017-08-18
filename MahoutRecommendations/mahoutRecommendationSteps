@@ -1,0 +1,26 @@
+To provide the best mahout recommendation for the data, we have to first change the data as mahout accepts only integer values and since ISBN and TITLE are strings we have created a dictionary/csv file which has indexed value from 1 to n for Book ISBN - Book Title.
+Sequence for executing python script:
+1. Run BookTitle.py, this will create a dictionary for isbn and title, with isbn as keys and title as values
+2. Run BookMapping.py, this will create 2 csv files, first csv file has isbn, bookTitle and indexes, second csv file has user, index, rating. The indexes refer to the ISBN and BookTitle from the first csv
+3. Start hdfs and run the following mahout command:
+	mahout recommenditembased --input /New-Book-Ratings.csv --output recommendations --numRecommendations 10 --similarityClassname SIMILARITY_COSINE
+4. After the command is executed a new success file under /usr/username/recommendation/part**** is created which has all the recommendations.
+5. Run redis server - redis-4.0.1/src/redis-server
+6. Open Redis CLI - Check if it's working
+7. Run Mongo Daemon <mongod> to instantiate the server.
+8. Run redisMapping.py which inserts the recommendations from hdfs into redis database.
+9. Run mongoMapping.py which inserts the recommendations from mongoDB into redis database.
+10. Run webServer.py to initiate flask, and you can test by passing the userID as input parameters to check the output.(http://localhost:5000/user/242)
+11. Run the MVC application on local host and enter the userID to view its details and recommendations.
+
+Input Files:
+hadoop fs -put /Users/varshacholennavar/Desktop/AmazonReviews/BX-CSV-Dump/New-Book-Ratings.csv /New-Book-Ratings.csv
+
+mahout recommenditembased --input /New-Book-Ratings.csv --output recommendations --numRecommendations 10 --similarityClassname SIMILARITY_COSINE
+
+How to install redis:
+1. sudo easy_install redis
+2. wget http://download.redis.io/releases/redis-4.0.1.tar.gz
+3. tar xzf redis-4.0.1.tar.gz
+4. cd redis-4.0.1
+5. make ./src/redis-server

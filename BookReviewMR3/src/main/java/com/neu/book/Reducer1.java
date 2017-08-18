@@ -19,8 +19,6 @@ public class Reducer1 extends Reducer<Text, IntWritable, Text, IntWritable> {
         for (IntWritable val : values) {            
             count++;
         }
-        //float average = (float)(sum/count);
-        //result.set(average);
         context.write(key, new IntWritable(count));
     }
 }
